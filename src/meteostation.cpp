@@ -15,8 +15,6 @@ int readHallSensors()
     hallSensorAValue = analogRead(HALL_SENSOR_A_PIN);
     hallSensorBValue = analogRead(HALL_SENSOR_B_PIN);
 
-    // Serial.println((String) hallSensorAValue + "  " + (String) hallSensorBValue);
-
     if (hallSensorAValue < hallSensorBValue)
         return ((hallSensorBValue + hallSensorAValue) / 2) * -1;
     else

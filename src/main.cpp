@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "meteostation.h"
 
+
 // ==== PRIVATE VARIABLES ====
 // Змінні для визначення швидкості вітру
 bool previewFlagWindSpeed = true;
