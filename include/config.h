@@ -6,7 +6,7 @@
 // Номери пінів датчиків Холла
 #define HALL_SENSOR_A_PIN 33
 #define HALL_SENSOR_B_PIN 34
-#define WIND_DIRECTION_DELAY 600 // в секундах (15хв)
+#define WIND_DIRECTION_DELAY 900 // в секундах (15хв)
 
 
 // Межі аналогових значень для 8 напрямків вітру

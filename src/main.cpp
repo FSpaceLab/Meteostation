@@ -54,8 +54,6 @@ void loop()
         windDirection = determineWindDirection(sensorValue);
     }
     preview_time_wind_direction = millis();
-
-
 }
 
 
