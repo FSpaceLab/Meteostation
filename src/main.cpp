@@ -33,6 +33,10 @@ void setup()
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
     attachInterrupt(ANEMOMETER_PIN, windSpeedISR, CHANGE);
+
+    //Налаштування Serial для gsm
+    Serial1.begin(9600, SERIAL_8N1, 16, 17); 
+    Serial.begin(9600); 
 }
 
 
@@ -54,6 +58,18 @@ void loop()
         windDirection = determineWindDirection(sensorValue);
     }
     preview_time_wind_direction = millis();
+
+
+    // Відправка данних через GSM модуль
+
+    if (((current_time - preview_time_wind_direction) / 1000) >= WIND_DIRECTION_DELAY)
+    {
+        SendData(0 , 0 , windSpeed , windDirection );
+    }
+    preview_time_wind_direction = millis();
+
+
+
 }
 
 
