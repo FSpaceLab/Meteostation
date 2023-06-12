@@ -41,9 +41,10 @@ void loop()
     current_time = millis();
 
     // Визначення швидкості вітру кожні 4 виклики переривання `windSpeedISR`
-    if (flagWindSpeed != previewFlagWindSpeed && counterWindSpeed == 3)
+    if (flagWindSpeed != previewFlagWindSpeed)
     {
-        windSpeed = calcWindSpeed(startTimeWindSpeed);
+        if (counterWindSpeed == 3)
+            windSpeed = calcWindSpeed(startTimeWindSpeed);
         previewFlagWindSpeed = flagWindSpeed;
     }
 
