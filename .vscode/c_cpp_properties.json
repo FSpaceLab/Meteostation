@@ -8,8 +8,10 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/Users/user/Projects/Laboratory projects/Meteostantion/include",
-                "/Users/user/Projects/Laboratory projects/Meteostantion/src",
+                "/Users/user/Projects/Laboratory projects/Meteostation/include",
+                "/Users/user/Projects/Laboratory projects/Meteostation/src",
+                "/Users/user/Projects/Laboratory projects/Meteostation/.pio/libdeps/esp32doit-devkit-v1/DHT sensor library",
+                "/Users/user/Projects/Laboratory projects/Meteostation/.pio/libdeps/esp32doit-devkit-v1/Adafruit Unified Sensor",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/config",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_trace",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_update",
@@ -73,7 +75,7 @@
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/fb_gfx",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/cores/esp32",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/variants/doitESP32devkitV1",
-                "/Users/user/Projects/Laboratory projects/Meteostantion/.pio/libdeps/esp32doit-devkit-v1/Unity/src",
+                "/Users/user/Projects/Laboratory projects/Meteostation/.pio/libdeps/esp32doit-devkit-v1/Unity/src",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                 "/Users/user/.platformio/packages/framework-arduinoespressif32/libraries/AzureIoT/src",
@@ -107,8 +109,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/Users/user/Projects/Laboratory projects/Meteostantion/include",
-                    "/Users/user/Projects/Laboratory projects/Meteostantion/src",
+                    "/Users/user/Projects/Laboratory projects/Meteostation/include",
+                    "/Users/user/Projects/Laboratory projects/Meteostation/src",
+                    "/Users/user/Projects/Laboratory projects/Meteostation/.pio/libdeps/esp32doit-devkit-v1/DHT sensor library",
+                    "/Users/user/Projects/Laboratory projects/Meteostation/.pio/libdeps/esp32doit-devkit-v1/Adafruit Unified Sensor",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/config",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_trace",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_update",
@@ -172,7 +176,7 @@
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/fb_gfx",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/cores/esp32",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/variants/doitESP32devkitV1",
-                    "/Users/user/Projects/Laboratory projects/Meteostantion/.pio/libdeps/esp32doit-devkit-v1/Unity/src",
+                    "/Users/user/Projects/Laboratory projects/Meteostation/.pio/libdeps/esp32doit-devkit-v1/Unity/src",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                     "/Users/user/.platformio/packages/framework-arduinoespressif32/libraries/AzureIoT/src",

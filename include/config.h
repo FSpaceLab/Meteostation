@@ -1,4 +1,10 @@
-#pragma once
+#ifndef __CONFIG_H
+#define __CONFIG_H
+
+// Часові інтервали
+#define INTERVAL_WIND_DIRECTION 900 // [сек] (15хв) Інтервал визначення напрямку вітру
+#define INTERVAL_TEMP_HUM       900 // [сек] (15хв) Інтервал визначення температури та вологості
+
 // Визначення швидкості вітру
 #define ANEMOMETER_PIN 2 
 #define CIRCLE_LEN 0.358142   // Довжина кола анемометра
@@ -6,8 +12,6 @@
 // Номери пінів датчиків Холла
 #define HALL_SENSOR_A_PIN 33
 #define HALL_SENSOR_B_PIN 34
-#define WIND_DIRECTION_DELAY 900 // в секундах (15хв)
-
 
 // Межі аналогових значень для 8 напрямків вітру
 const int WIND_DIRECTION_THRESHOLDS[8][2] = {
@@ -25,3 +29,11 @@ const int WIND_DIRECTION_THRESHOLDS[8][2] = {
 const uint16_t WIND_DIRECTION_VALUES[8] = {
   0, 45, 90, 135, 180, 225, 360
 };
+
+// Визначення температури та вологості
+#define DHTPIN 14 
+
+
+#define ERROR_CODE 666
+
+#endif
