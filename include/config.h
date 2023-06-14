@@ -2,12 +2,13 @@
 #define __CONFIG_H
 
 // Часові інтервали
-#define INTERVAL_WIND_DIRECTION 900 // [сек] (15хв) Інтервал визначення напрямку вітру
-#define INTERVAL_TEMP_HUM       900 // [сек] (15хв) Інтервал визначення температури та вологості
+#define INTERVAL_WIND_DIRECTION 9  // [сек] (15хв) Інтервал визначення напрямку вітру
+#define INTERVAL_TEMP_HUM       9  // [сек] (15хв) Інтервал визначення температури та вологості
+#define INTERVAL_SENDING        60 // [сек] (1хв) Інтервал надсилання даних
 
 // Визначення швидкості вітру
 #define ANEMOMETER_PIN 2 
-#define CIRCLE_LEN 0.358142   // Довжина кола анемометра
+#define CIRCLE_LEN 0.358142 * 3.14   // Довжина кола анемометра
 
 // Номери пінів датчиків Холла
 #define HALL_SENSOR_A_PIN 33

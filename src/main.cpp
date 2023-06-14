@@ -4,6 +4,7 @@
 #include <DHT_U.h>
 #include "meteostation.h"
 #include "config.h"
+#include "gsm.h"
 
 // ==== PRIVATE DEFINES ====
 #define DHTTYPE    DHT22
@@ -25,6 +26,7 @@ int sensorValue;
 unsigned long preview_time_wind_direction;
 unsigned long current_time;
 unsigned long preview_time_temp_hum;
+unsigned long preview_sending_time;
 
 // Обʼєкт для роботи з DHT22 (визначення температури та вологості)
 DHT_Unified dht(DHTPIN, DHTTYPE);
@@ -38,7 +40,7 @@ void IRAM_ATTR windSpeedISR();
 // ==== SETUP AND LOOP FUNCTIONS ====
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200); 
     pinMode(HALL_SENSOR_A_PIN, INPUT);
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
@@ -79,6 +81,13 @@ void loop()
 
         preview_time_temp_hum = current_time;
     }
+
+    // Надсилання даних на сервер кожні `INTERVAL_SENDING` секунд
+    if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
+    {
+        SendData(humudity, temperature, windSpeed, windDirection);
+    }
+    Serial.println(windSpeed);
 }
 
 
