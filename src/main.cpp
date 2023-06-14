@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "meteostation.h"
-
+#include "gsm.h"
 
 // ==== PRIVATE VARIABLES ====
 // Змінні для визначення швидкості вітру
