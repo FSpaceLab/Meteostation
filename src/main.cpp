@@ -32,6 +32,7 @@ unsigned long preview_wind_speed_time;
 // Змінні для розрахунку середніх значень
 float wind_speed_average = 0;
 uint16_t wind_speed_count_measure = 0;
+float final_wind_speed;
 
 // Обʼєкт для роботи з DHT22 (визначення температури та вологості)
 DHT_Unified dht(DHTPIN, DHTTYPE);
@@ -107,9 +108,10 @@ void loop()
     // Надсилання даних на сервер кожні `INTERVAL_SENDING` секунд
     if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
     {
-        Serial.println(wind_speed_average / wind_speed_count_measure);
+        final_wind_speed = wind_speed_count_measure ? wind_speed_average / wind_speed_count_measure : 0;
+        Serial.println(final_wind_speed);
 
-        SendData(Serial1, humudity, temperature, wind_speed_average / wind_speed_count_measure, windDirection);
+        SendData(Serial1, humudity, temperature, final_wind_speed, windDirection);
         
         wind_speed_average = 0;
         wind_speed_count_measure = 0;
