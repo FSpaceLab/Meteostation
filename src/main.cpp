@@ -1,5 +1,13 @@
 #include <Arduino.h>
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
 #include "meteostation.h"
+#include "config.h"
+#include "gsm.h"
+
+// ==== PRIVATE DEFINES ====
+#define DHTTYPE    DHT22
 
 
 // ==== PRIVATE VARIABLES ====
@@ -10,16 +18,20 @@ uint8_t counterWindSpeed;
 double startTimeWindSpeed;
 float windSpeed;
 
-
 // Змінні для визначення напрямку вітру
 uint16_t windDirection;
 int sensorValue;
 
-
 // Змінні для створення затримок
 unsigned long preview_time_wind_direction;
 unsigned long current_time;
+unsigned long preview_time_temp_hum;
+unsigned long preview_sending_time;
 
+// Обʼєкт для роботи з DHT22 (визначення температури та вологості)
+DHT_Unified dht(DHTPIN, DHTTYPE);
+sensors_event_t event;
+float temperature, humudity;
 
 // ==== DECLARATION PRIVATE FUNCTIONS ====
 void IRAM_ATTR windSpeedISR();
@@ -28,7 +40,7 @@ void IRAM_ATTR windSpeedISR();
 // ==== SETUP AND LOOP FUNCTIONS ====
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200); 
     pinMode(HALL_SENSOR_A_PIN, INPUT);
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
@@ -48,13 +60,34 @@ void loop()
         previewFlagWindSpeed = flagWindSpeed;
     }
 
-    // Визначення напрямку вітру кожні `WIND_DIRECTION_DELAY` секунд
-    if (((current_time - preview_time_wind_direction) / 1000) >= WIND_DIRECTION_DELAY)
+    // Визначення напрямку вітру кожні `INTERVAL_WIND_DIRECTION` секунд
+    if (((current_time - preview_time_wind_direction) / 1000) >= INTERVAL_WIND_DIRECTION)
     {
         sensorValue = readHallSensors();
         windDirection = determineWindDirection(sensorValue);
+        preview_time_wind_direction = current_time;
     }
-    preview_time_wind_direction = millis();
+
+    // Визначення температури та вологості кожні `INTERVAL_TEMP_HUM` секунд
+    if (((current_time - preview_time_temp_hum) / 1000) >= INTERVAL_TEMP_HUM)
+    {
+        // Температура
+        dht.temperature().getEvent(&event);
+        temperature = isnan(event.temperature) ? ERROR_CODE : event.temperature;
+
+        // Вологість
+        dht.humidity().getEvent(&event);
+        humudity = isnan(event.relative_humidity) ? ERROR_CODE : event.relative_humidity;
+
+        preview_time_temp_hum = current_time;
+    }
+
+    // Надсилання даних на сервер кожні `INTERVAL_SENDING` секунд
+    if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
+    {
+        SendData(humudity, temperature, windSpeed, windDirection);
+    }
+    Serial.println(windSpeed);
 }
 
 
