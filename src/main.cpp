@@ -23,10 +23,11 @@ uint16_t windDirection;
 int sensorValue;
 
 // Змінні для створення затримок
-unsigned long preview_time_wind_direction;
 unsigned long current_time;
+unsigned long preview_time_wind_direction;
 unsigned long preview_time_temp_hum;
 unsigned long preview_sending_time;
+unsigned long preview_wind_speed_time;
 
 // Обʼєкт для роботи з DHT22 (визначення температури та вологості)
 DHT_Unified dht(DHTPIN, DHTTYPE);
@@ -51,15 +52,20 @@ void setup()
 void loop()
 {
     current_time = millis();
-
+    // -------- Швидкість вітру --------
     // Визначення швидкості вітру кожні 4 виклики переривання `windSpeedISR`
     if (flagWindSpeed != previewFlagWindSpeed)
     {
         if (counterWindSpeed == 3)
             windSpeed = calcWindSpeed(startTimeWindSpeed);
         previewFlagWindSpeed = flagWindSpeed;
+        preview_wind_speed_time = current_time;
     }
+    // Онулення швидкості, якщо немає переривань
+    if (((current_time - preview_wind_speed_time) / 1000) > INTERVAL_WIND_SPEED_ZEROING)
+        windSpeed = 0;
 
+    // -------- Напрямок вітру --------
     // Визначення напрямку вітру кожні `INTERVAL_WIND_DIRECTION` секунд
     if (((current_time - preview_time_wind_direction) / 1000) >= INTERVAL_WIND_DIRECTION)
     {
@@ -68,6 +74,7 @@ void loop()
         preview_time_wind_direction = current_time;
     }
 
+    // -------- Температура та вологість --------
     // Визначення температури та вологості кожні `INTERVAL_TEMP_HUM` секунд
     if (((current_time - preview_time_temp_hum) / 1000) >= INTERVAL_TEMP_HUM)
     {
@@ -82,11 +89,15 @@ void loop()
         preview_time_temp_hum = current_time;
     }
 
+    // -------- Кількість опадів --------
+    // TODO: Counting amount of rain
+
+    // -------- Відправка даних на сервер --------
     // Надсилання даних на сервер кожні `INTERVAL_SENDING` секунд
-    if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
-    {
-        SendData(humudity, temperature, windSpeed, windDirection);
-    }
+    // if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
+    // {
+    //     SendData(humudity, temperature, windSpeed, windDirection);
+    // }
     Serial.println(windSpeed);
 }
 
