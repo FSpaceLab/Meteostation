@@ -2,6 +2,7 @@
 #define __GSM_H
 
 #include <Arduino.h>
+#include "config.h"
 
 void SetupGsm(HardwareSerial & _serial);
 void SendData(HardwareSerial & _serial, float h, float t, float s, float d);

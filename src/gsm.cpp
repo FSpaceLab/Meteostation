@@ -49,7 +49,7 @@ void SendData(HardwareSerial & _serial, float h, float t, float s, float d)
     _serial.println("AT+CIPSEND"); // begin send data to remote server
     delay(4000);
 
-    String str = "GET https://api.thingspeak.com/update?api_key=RLHRL8UF3X65GQH6&field1=" + String(h) + "&field2=" + String(t) + "&field3=" + String(s) + "&field4=" + String(d);
+    String str = "GET " + String(SERVER_LINK) + "&field1=" + String(h) + "&field2=" + String(t) + "&field3=" + String(s) + "&field4=" + String(d);
     Serial.println(str);
     _serial.println(str); // begin send data to remote server
 

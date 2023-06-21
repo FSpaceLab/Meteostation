@@ -1,6 +1,10 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
+// Надсилання на сервер
+#define SEND_DATA_TO_SERVER true
+#define SERVER_LINK "https://api.thingspeak.com/update?api_key=RLHRL8UF3X65GQH6"
+
 // Часові інтервали
 #define INTERVAL_WIND_DIRECTION 9  // [сек] (15хв) Інтервал визначення напрямку вітру
 #define INTERVAL_TEMP_HUM       9  // [сек] (15хв) Інтервал визначення температури та вологості
@@ -9,7 +13,7 @@
 
 // Визначення швидкості вітру
 #define ANEMOMETER_PIN 2 
-#define CIRCLE_LEN 0.358142 * 1.39   // Довжина кола анемометра
+#define CIRCLE_LEN 0.358142 * 1.39   // Довжина кола анемометра * коефіцієнт коригування
 
 // Номери пінів датчиків Холла
 #define HALL_SENSOR_A_PIN 33

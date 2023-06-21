@@ -111,7 +111,8 @@ void loop()
         final_wind_speed = wind_speed_count_measure ? wind_speed_average / wind_speed_count_measure : 0;
         Serial.println(final_wind_speed);
 
-        SendData(Serial1, humudity, temperature, final_wind_speed, windDirection);
+        if (SEND_DATA_TO_SERVER)
+            SendData(Serial1, humudity, temperature, final_wind_speed, windDirection);
         
         wind_speed_average = 0;
         wind_speed_count_measure = 0;
