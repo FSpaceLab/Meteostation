@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-void SendData(float h, float t, float s, float d);
-
+void SetupGsm(HardwareSerial & _serial);
+void SendData(HardwareSerial & _serial, float h, float t, float s, float d);
 
 #endif
