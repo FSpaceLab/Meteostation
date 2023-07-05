@@ -3,7 +3,7 @@
 unsigned long current_time_gsm;
 unsigned long preview_time_gsm;
 
-void SendData(float h, float t, float s, float d)
+void SendData(float h, float t, float s, float d, float b)
 {
     Serial1.begin(9600, SERIAL_8N1, 16, 17);
     if (Serial1.available())
@@ -48,7 +48,7 @@ void SendData(float h, float t, float s, float d)
     Serial1.println("AT+CIPSEND"); // begin send data to remote server
     delay(4000);
 
-    String str = "GET https://api.thingspeak.com/update?api_key=RLHRL8UF3X65GQH6&field1=" + String(h) + "&field2=" + String(t) + "&field3=" + String(s) + "&field4=" + String(d);
+    String str = "GET https://api.thingspeak.com/update?api_key=79NA5ZUGQP4CS0JY&field1=" + String(0) + "&field2=" + String(b) + "&field3=" + String(s) + "&field4=" + String(d) + "&field6=" + String(t)+ "&field8=" + String(h);
     Serial.println(str);
     Serial1.println(str); // begin send data to remote server
 

@@ -29,6 +29,11 @@ unsigned long preview_time_temp_hum;
 unsigned long preview_sending_time;
 unsigned long preview_wind_speed_time;
 
+// Змінні для розрахунку середніх значень
+float wind_speed_average = 0;
+uint16_t wind_speed_count_measure = 0;
+float final_wind_speed;
+
 // Обʼєкт для роботи з DHT22 (визначення температури та вологості)
 DHT_Unified dht(DHTPIN, DHTTYPE);
 sensors_event_t event;
@@ -42,10 +47,13 @@ void IRAM_ATTR windSpeedISR();
 void setup()
 {
     Serial.begin(115200); 
+    Serial1.begin(9600, SERIAL_8N1, 16, 17);
     pinMode(HALL_SENSOR_A_PIN, INPUT);
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
     attachInterrupt(ANEMOMETER_PIN, windSpeedISR, CHANGE);
+
+    //SetupGsm(Serial1);
 }
 
 
@@ -57,7 +65,11 @@ void loop()
     if (flagWindSpeed != previewFlagWindSpeed)
     {
         if (counterWindSpeed == 3)
+        {
             windSpeed = calcWindSpeed(startTimeWindSpeed);
+            wind_speed_average += windSpeed;
+            wind_speed_count_measure++;
+        }
         previewFlagWindSpeed = flagWindSpeed;
         preview_wind_speed_time = current_time;
     }
@@ -94,11 +106,19 @@ void loop()
 
     // -------- Відправка даних на сервер --------
     // Надсилання даних на сервер кожні `INTERVAL_SENDING` секунд
-    // if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
-    // {
-    //     SendData(humudity, temperature, windSpeed, windDirection);
-    // }
-    Serial.println(windSpeed);
+    if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
+    {
+        final_wind_speed = wind_speed_count_measure ? wind_speed_average / wind_speed_count_measure : 0;
+        Serial.println(final_wind_speed);
+
+        SendData(Serial1, humudity, temperature, final_wind_speed, windDirection);
+        
+        wind_speed_average = 0;
+        wind_speed_count_measure = 0;
+
+        preview_sending_time = current_time;
+    }
+    
 }
 
 
