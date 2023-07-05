@@ -52,7 +52,6 @@ void setup()
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
     attachInterrupt(ANEMOMETER_PIN, windSpeedISR, CHANGE);
-
     //SetupGsm(Serial1);
 }
 
@@ -111,7 +110,7 @@ void loop()
         final_wind_speed = wind_speed_count_measure ? wind_speed_average / wind_speed_count_measure : 0;
         Serial.println(final_wind_speed);
 
-        SendData(Serial1, humudity, temperature, final_wind_speed, windDirection);
+        SendData(humudity, temperature, final_wind_speed, windDirection, Serial1);
         
         wind_speed_average = 0;
         wind_speed_count_measure = 0;

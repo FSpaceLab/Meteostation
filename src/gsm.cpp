@@ -61,3 +61,22 @@ void SendData(float h, float t, float s, float d, float b)
     Serial1.println("AT+CIPSHUT"); // close the connection
     delay(100);
 }
+
+float levelBattery()
+{
+  static int count;
+  static float averege;
+  float voltage;
+  if (count == 500)
+  {
+    voltage = 0.178 * exp(0.00107 * (averege / float(count)));
+    averege=0;
+    count=0;
+  }
+  else
+  {
+    count++;
+    averege += analogRead(batPin);
+  }
+  return voltage;
+}
