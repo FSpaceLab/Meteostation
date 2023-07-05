@@ -4,5 +4,6 @@
 #include <Arduino.h>
 
 void SendData(float h, float t, float s, float d, float b);
+float levelBattery();
 
 #endif
