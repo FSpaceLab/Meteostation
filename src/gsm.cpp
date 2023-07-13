@@ -8,6 +8,9 @@ void SendData(float h, float t, float s, float d, float b)
     Serial1.begin(9600, SERIAL_8N1, 16, 17);
     if (Serial1.available())
         Serial.write(Serial1.read());
+    
+    Serial1.println("AT+CFUN=1");
+    delay(1000);
 
     Serial1.println("AT");
     delay(1000);
@@ -60,6 +63,10 @@ void SendData(float h, float t, float s, float d, float b)
 
     Serial1.println("AT+CIPSHUT"); // close the connection
     delay(100);
+
+    Serial1.println("AT+CFUN=0");
+    delay(100);
+
 }
 
 float levelBattery()
