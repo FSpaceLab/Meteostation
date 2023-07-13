@@ -69,14 +69,17 @@ float levelBattery()
   float voltage;
   if (count == 500)
   {
-    voltage = 0.178 * exp(0.00107 * (averege / float(count)));
-    averege=0;
-    count=0;
+    voltage = 0.104 * exp(0.00135 * (averege / float(count)));
+    averege = 0;
+    count = 0;
   }
   else
   {
     count++;
     averege += analogRead(batPin);
   }
-  return voltage;
+  int percentages = round(100 - (8.42 - voltage) / 2.3 * 100);
+  if ((percentages < 0) || (percentages > 100))
+    percentages = 666;
+  return percentages;
 }

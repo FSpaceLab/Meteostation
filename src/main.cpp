@@ -52,6 +52,7 @@ void setup()
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
     attachInterrupt(ANEMOMETER_PIN, windSpeedISR, CHANGE);
+    
     //SetupGsm(Serial1);
 }
 
