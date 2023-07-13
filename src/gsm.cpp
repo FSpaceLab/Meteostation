@@ -87,6 +87,6 @@ float levelBattery()
   }
   int percentages = round(100 - (8.42 - voltage) / 2.3 * 100);
   if ((percentages < 0) || (percentages > 100))
-    percentages = 666;
+    percentages = ERROR_CODE;
   return percentages;
 }

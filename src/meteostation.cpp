@@ -31,5 +31,5 @@ uint16_t determineWindDirection(int sensorValue)
             return WIND_DIRECTION_VALUES[i];
         }
     }
-    return 666;
+    return ERROR_CODE;
 }
