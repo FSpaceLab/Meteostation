@@ -11,6 +11,11 @@
 
 
 // ==== PRIVATE VARIABLES ====
+
+// Змінні реалізації режиму сну
+bool preparedToSleepFlag = false;
+
+
 // Змінні для визначення швидкості вітру
 bool previewFlagWindSpeed = true;
 bool flagWindSpeed = false;
@@ -52,7 +57,8 @@ void setup()
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
     attachInterrupt(ANEMOMETER_PIN, windSpeedISR, CHANGE);
-    
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_4, 1);
+
     //SetupGsm(Serial1);
 }
 
@@ -112,13 +118,20 @@ void loop()
         Serial.println(final_wind_speed);
 
         SendData(humudity, temperature, final_wind_speed, windDirection, levelBattery());
+
+        preparedToSleepFlag = true;
         
         wind_speed_average = 0;
         wind_speed_count_measure = 0;
 
         preview_sending_time = current_time;
     }
-    
+
+    // Перехід в сон у випадку виконання умови відправки данних
+    if(preparedToSleepFlag){
+        preparedToSleepFlag = false;
+        esp_deep_sleep_start();
+    }
 }
 
 
