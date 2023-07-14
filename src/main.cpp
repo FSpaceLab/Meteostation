@@ -14,6 +14,7 @@
 
 // Змінні реалізації режиму сну
 bool preparedToSleepFlag = false;
+const int trig = 0;  
 
 
 // Змінні для визначення швидкості вітру
@@ -57,7 +58,9 @@ void setup()
     pinMode(HALL_SENSOR_B_PIN, INPUT);
     pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
     attachInterrupt(ANEMOMETER_PIN, windSpeedISR, CHANGE);
+    pinMode(trig, OUTPUT); 
     esp_sleep_enable_ext0_wakeup(GPIO_NUM_4, 1);
+    
 
     //SetupGsm(Serial1);
 }
