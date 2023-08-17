@@ -12,13 +12,22 @@ float calcWindSpeed(float start_time)
 
 int readHallSensors()
 {
+
+    digitalWrite(HALL_SENSOR_POWER_PIN , HIGH);
+
     hallSensorAValue = analogRead(HALL_SENSOR_A_PIN);
     hallSensorBValue = analogRead(HALL_SENSOR_B_PIN);
+
+    Serial.print(hallSensorAValue);
+    Serial.print(" ");
+    Serial.println(hallSensorBValue);
 
     if (hallSensorAValue < hallSensorBValue)
         return ((hallSensorBValue + hallSensorAValue) / 2) * -1;
     else
         return (hallSensorBValue + hallSensorAValue) / 2;
+
+    digitalWrite(HALL_SENSOR_POWER_PIN , LOW);
 }
 
 
@@ -31,5 +40,5 @@ uint16_t determineWindDirection(int sensorValue)
             return WIND_DIRECTION_VALUES[i];
         }
     }
-    return 666;
+    return ERROR_CODE;
 }

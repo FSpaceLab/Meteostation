@@ -1,23 +1,22 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-// Надсилання на сервер
-#define SEND_DATA_TO_SERVER true
-#define SERVER_LINK "https://api.thingspeak.com/update?api_key=RLHRL8UF3X65GQH6"
-
 // Часові інтервали
-#define INTERVAL_WIND_DIRECTION 9  // [сек] (15хв) Інтервал визначення напрямку вітру
-#define INTERVAL_TEMP_HUM       9  // [сек] (15хв) Інтервал визначення температури та вологості
-#define INTERVAL_SENDING        60 // [сек] (1хв) Інтервал надсилання даних
-#define INTERVAL_WIND_SPEED_ZEROING 10 // [сек] Інтервал після якого відбудеться онулення швидкості вітру
+#define INTERVAL_WIND_DIRECTION 6  // [сек] (15хв) Інтервал визначення напрямку вітру
+#define INTERVAL_TEMP_HUM       6  // [сек] (15хв) Інтервал визначення температури та вологості
+#define INTERVAL_SENDING        18 // [сек] (1хв) Інтервал надсилання даних
+#define INTERVAL_WIND_SPEED_ZEROING 7 // [сек] Інтервал після якого відбудеться онулення швидкості вітру
 
 // Визначення швидкості вітру
 #define ANEMOMETER_PIN 2 
-#define CIRCLE_LEN 0.358142 * 1.39   // Довжина кола анемометра * коефіцієнт коригування
+#define CIRCLE_LEN 0.358142 * 1.39   // Довжина кола анемометра
 
 // Номери пінів датчиків Холла
 #define HALL_SENSOR_A_PIN 33
 #define HALL_SENSOR_B_PIN 34
+
+#define HALL_SENSOR_POWER_PIN 25 // Пін який буде давати живлення на датчики тільки в необхідний момент
+
 
 // Межі аналогових значень для 8 напрямків вітру
 const int WIND_DIRECTION_THRESHOLDS[8][2] = {
@@ -39,6 +38,8 @@ const uint16_t WIND_DIRECTION_VALUES[8] = {
 // Визначення температури та вологості
 #define DHTPIN 14 
 
+// Визначення кількості опадів
+#define RAIN_SENSOR_PIN 27
 
 #define ERROR_CODE 666
 

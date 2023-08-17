@@ -1,10 +1,10 @@
 #ifndef __GSM_H
 #define __GSM_H
-
+#define batPin 35
 #include <Arduino.h>
-#include "config.h"
+#include <config.h>
 
-void SetupGsm(HardwareSerial & _serial);
-void SendData(HardwareSerial & _serial, float h, float t, float s, float d);
+void SendData(float h, float t, float s, float d, float b, uint16_t rainInterruptAmount);
+float levelBattery();
 
 #endif
