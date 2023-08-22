@@ -103,6 +103,7 @@ void loop()
     if (((current_time - preview_time_wind_direction) / 1000) >= INTERVAL_WIND_DIRECTION)
     {
         sensorValue = readHallSensors();
+        Serial.println(sensorValue);
         windDirection = determineWindDirection(sensorValue);
         preview_time_wind_direction = current_time;
     }
@@ -127,6 +128,7 @@ void loop()
 
     // -------- Відправка даних на сервер --------
     // Надсилання даних на сервер кожні `INTERVAL_SENDING` секунд
+
     if (((current_time - preview_sending_time) / 1000) >= INTERVAL_SENDING)
     {
         final_wind_speed = wind_speed_count_measure ? wind_speed_average / wind_speed_count_measure : 0;
@@ -144,14 +146,14 @@ void loop()
         preview_sending_time = current_time;
     }
 
-    // Перехід в сон у випадку виконання умови відправки данних 
-    if (preparedToSleepFlag)
-    {
-        digitalWrite(doneSignalSend, HIGH);
-        delay(100);                             //переводим таймер в 0 перед відправкою esp в sleepmode
-        digitalWrite(doneSignalSend, LOW);
-        preparedToSleepFlag = false;
-    }
+    // // Перехід в сон у випадку виконання умови відправки данних 
+    // if (preparedToSleepFlag)
+    // {
+    //     digitalWrite(doneSignalSend, HIGH);
+    //     delay(100);                             //переводим таймер в 0 перед відправкою esp в sleepmode
+    //     digitalWrite(doneSignalSend, LOW);
+    //     preparedToSleepFlag = false;
+    // }
 }
 
 // ==== PRIVATE FUNCTIONS ====

@@ -17,11 +17,6 @@ int readHallSensors()
 
     hallSensorAValue = analogRead(HALL_SENSOR_A_PIN);
     hallSensorBValue = analogRead(HALL_SENSOR_B_PIN);
-
-    Serial.print(hallSensorAValue);
-    Serial.print(" ");
-    Serial.println(hallSensorBValue);
-
     if (hallSensorAValue < hallSensorBValue)
         return ((hallSensorBValue + hallSensorAValue) / 2) * -1;
     else
@@ -37,7 +32,9 @@ uint16_t determineWindDirection(int sensorValue)
     {
         if (sensorValue >= WIND_DIRECTION_THRESHOLDS[i][0] && sensorValue <= WIND_DIRECTION_THRESHOLDS[i][1])
         {
+
             return WIND_DIRECTION_VALUES[i];
+
         }
     }
     return ERROR_CODE;
