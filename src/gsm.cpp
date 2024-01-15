@@ -70,7 +70,7 @@ float levelBattery()
   int count;
   float averege;
   float voltage;
-  for (count = 0; count < 500; count++)
+  for (count = 0; count < 1000; count++)
   {
     averege += analogRead(batPin);
     delay(5);
